@@ -15,7 +15,7 @@ fn main() {
     
     // println!("{}, {}", r1, r2);
 
-    let reference_to_nothing = dangle();
+    // let reference_to_nothing = dangle();
 }
 
 fn calculate_length(s: &String) -> usize {  // s is a reference to a String
@@ -27,10 +27,10 @@ fn exclamate(some_string: &mut String) {    // s is a mutable reference to a Str
     some_string.push_str(" !");             // Here, the referenced string is modified
 }
 
-fn dangle() -> &String {    // dangle returns a reference to a String
-    let s = String::from("Hello");  // s is a new String
+//fn dangle() -> &String {    // dangle returns a reference to a String
+//    let s = String::from("Hello");  // s is a new String
 
-    &s  // returns a reference to a String, s
-}   // Here, s goes out of scope, and is dropped. Its memory goes away. DANGER!
+//    &s  // returns a reference to a String, s
+//}   // Here, s goes out of scope, and is dropped. Its memory goes away. DANGER!
 
  
