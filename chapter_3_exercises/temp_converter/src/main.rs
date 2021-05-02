@@ -1,35 +1,57 @@
 use std::io;
 
 fn main() {
-    println!("Enter the desired temperature in celsius or fahrenheit (i.e. 32.0F):");
+    println!("Enter the desired temperature in celsius or fahrenheit (i.e. 32F):");
 
-    let mut res = String::new();
-    'main: loop {
+    loop {
+        let mut input = String::new();
         io::stdin()
-            .read_line(&mut res)
-            .expect("Unable to read line");
+            .read_line(&mut input)
+            .expect("Failed to read line");
 
-        let value = &res[..res.len() - 2];
+        let temperature = input.trim();
 
-        let temp: f64 = value.trim().parse().expect("Unable to parse string");
-        let bytes = res.as_bytes();
+        let (temp, unit) = get_temperature_from_string(temperature);
 
-        for &item in bytes.iter() {
-            if item == b'F' {
-                println!("{}°F is equal to {}°C", temp, to_celsius(temp));
-                break 'main;
-            } else if item == b'C' {
-                println!("{}°C is equal to {}°F", temp, to_fahrenheit(temp));
-                break 'main;
+        match unit {
+            'F' => {
+                println!("{}°F => {}°C", temp, fahrenheit_to_celsius(temp));
+                break;
+            }
+            'C' => {
+                println!("{}°C => {}°F", temp, celsius_to_fahrenheit(temp));
+                break;
+            }
+            _ => {
+                println!("Please enter a valid temperature (i.e. 32F)");
+                continue;
             }
         }
     }
 }
 
-fn to_celsius(temp: f64) -> f64 {
+fn get_temperature_from_string(temp: &str) -> (f64, char) {
+    let bytes = temp.as_bytes();
+    let mut value = 0.0;
+    let mut unit = ' ';
+
+    for (i, &item) in bytes.iter().enumerate() {
+        if item == b'F' || item == b'f' {
+            value = temp[..i].parse().expect("Failed to parse");
+            unit = 'F';
+        } else if item == b'C' || item == b'c' {
+            value = temp[..i].parse().expect("Failed to parse");
+            unit = 'C';
+        }
+    }
+
+    (value, unit)
+}
+
+fn fahrenheit_to_celsius(temp: f64) -> f64 {
     (temp - 32.0) * (5.0 / 9.0)
 }
 
-fn to_fahrenheit(temp: f64) -> f64 {
+fn celsius_to_fahrenheit(temp: f64) -> f64 {
     (temp * 1.8) + 32.0
 }
