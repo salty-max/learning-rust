@@ -67,7 +67,7 @@ fn with_format() {
 }
 
 fn iter_over_string() {
-    let hello = String::from("こんにちは");
+    let hello = String::from("こんにちは、ニュー");
     for c in hello.chars() {
         println!("{}", c);
     }
