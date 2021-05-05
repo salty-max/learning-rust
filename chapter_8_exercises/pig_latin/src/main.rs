@@ -32,13 +32,9 @@ fn to_pig_latin(s: &str) -> Option<String> {
 
         if let Some(first) = first {
             if vowels.contains(&first) {
-                res.push_str(w);
-                res.push_str("-hay")
+                res += &format!("{}-{}", w, "hay");
             } else {
-                res.push_str(&w[1..]);
-                res.push('-');
-                res.push(first);
-                res.push_str("ay");
+                res += &format!("{}-{}{}", &w[1..], first, "ay");
             }
 
             if word_count != s.len() {
