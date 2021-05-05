@@ -20,18 +20,11 @@ impl HR {
         if let Some(employee) = employee {
             let employee = capitalize(employee);
             if let Some(department) = department {
-                match self
+                let employees = self
                     .employees_list
-                    .get_mut(&String::from(department).to_lowercase())
-                {
-                    Some(d) => {
-                        d.push(employee);
-                    }
-                    None => {
-                        self.employees_list
-                            .insert(department.to_lowercase(), vec![employee]);
-                    }
-                }
+                    .entry(department.to_lowercase())
+                    .or_insert_with(Vec::new);
+                employees.push(employee);
 
                 return String::from("Employee successfully added");
             }
