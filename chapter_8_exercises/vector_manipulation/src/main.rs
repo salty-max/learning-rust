@@ -21,13 +21,9 @@ fn mean(v: &[i32]) -> f64 {
     // 1. Sum the numbers in the vector
     // 2. Divide by the length of the vector
 
-    let mut total = 0.;
+    let sum = v.iter().sum::<i32>() as f64;
 
-    for &i in v {
-        total += i as f64;
-    }
-
-    total / v.len() as f64
+    sum / v.len() as f64
 }
 
 fn median(v: &[i32]) -> f64 {
