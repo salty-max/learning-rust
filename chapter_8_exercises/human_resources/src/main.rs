@@ -33,11 +33,11 @@ impl HR {
         String::from("Failed to add employee")
     }
 
-    fn get_department_personnel(&self, command: &str) -> Option<(String, Vec<String>)> {
+    fn get_department_personnel(&self, command: &str) -> Option<(String, &Vec<String>)> {
         let department = command.split_whitespace().nth(1);
         match department {
             Some(department) => match self.employees_list.get(&department.to_lowercase()) {
-                Some(d) => Some((String::from(department), d.clone())),
+                Some(d) => Some((String::from(department), &d)),
                 None => None,
             },
             None => None,
