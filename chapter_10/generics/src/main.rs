@@ -37,11 +37,11 @@ impl<T, U> ComplexPoint<T, U> {
 fn main() {
     let number_list = vec![34, 50, 25, 100, 65];
 
-    println!("The largest number is {}", largest_int(&number_list));
+    println!("The largest number is {}", largest(&number_list));
 
     let char_list = vec!['a', 'j', 'e', 'w', '!'];
 
-    println!("The largest char is {}", largest_char(&char_list));
+    println!("The largest char is {}", largest(&char_list));
 
     let integer = Point { x: 5, y: 10 };
     let float = Point { x: 1.0, y: 4.0 };
@@ -56,7 +56,7 @@ fn main() {
     println!("FUSIOOON {:?}", complex3);
 }
 
-fn largest_int(list: &[i32]) -> &i32 {
+fn _largest_int(list: &[i32]) -> &i32 {
     let mut largest = &list[0];
 
     for number in list {
@@ -68,7 +68,7 @@ fn largest_int(list: &[i32]) -> &i32 {
     largest
 }
 
-fn largest_char(list: &[char]) -> &char {
+fn _largest_char(list: &[char]) -> &char {
     let mut largest = &list[0];
 
     for c in list {
@@ -80,14 +80,14 @@ fn largest_char(list: &[char]) -> &char {
     largest
 }
 
-// fn largest<T>(list: &[T]) -> &T {
-//     let mut largest = &list[0];
+fn largest<T: PartialOrd>(list: &[T]) -> &T {
+    let mut largest = &list[0];
 
-//     for item in list {
-//         if item > largest {
-//             largest = item;
-//         }
-//     }
+    for item in list {
+        if item > largest {
+            largest = item;
+        }
+    }
 
-//     largest
-// }
+    largest
+}
